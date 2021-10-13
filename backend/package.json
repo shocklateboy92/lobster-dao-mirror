@@ -1,0 +1,12 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/shocklateboy92/lobster-dao-mirror",
+  "author": "Lasath & Sahan Fernando",
+  "license": "GPL2",
+  "private": true,
+  "dependencies": {
+    "@sorunome/matrix-bot-sdk": "^0.5.13"
+  }
+}
