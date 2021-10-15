@@ -1,0 +1,61 @@
+Got message with content '{
+  "msgtype": "m.text",
+  "body": "> <abzv11 (Telegram)> It will be interesting to see how the etf is run\n\nLike all other ETFs - it’s a boring, retail business. \n\nDerivs is where it’s interesting.",
+  "external_url": "https://t.me/lobsters_chat/285099",
+  "m.relates_to": {
+    "rel_type": "net.maunium.reply",
+    "m.in_reply_to": {
+      "event_id": "$XWV5Yg-kFYDSP7FlFU2Qh0SVmy0CBN_OWddSOZrh_6E"
+    },
+    "event_id": "$XWV5Yg-kFYDSP7FlFU2Qh0SVmy0CBN_OWddSOZrh_6E"
+  },
+  "format": "org.matrix.custom.html",
+  "formatted_body": "<mx-reply><blockquote><a href='https://matrix.to/#/!mrkzEUqaZYrWLpLRmD:lasath.org/$XWV5Yg-kFYDSP7FlFU2Qh0SVmy0CBN_OWddSOZrh_6E'>In reply to</a> <a href='https://matrix.to/#/@telegram_279043344:lasath.org'>abzv11 (Telegram)</a><br/>It will be interesting to see how the etf is run</blockquote></mx-reply>Like all other ETFs - it’s a boring, retail business. <br/><br/>Derivs is where it’s interesting."
+}'
+Got message with content '{
+  "msgtype": "m.text",
+  "body": "> <abzv11 (Telegram)> The bank has a large spot position and acts as custodian for the futures etf.  Any buying buy retail on the etf is immediately shorted by the bank\n\nThere’s no custody, only market makers bidding spot while shorting the futs",
+  "external_url": "https://t.me/lobsters_chat/285100",
+  "m.relates_to": {
+    "rel_type": "net.maunium.reply",
+    "m.in_reply_to": {
+      "event_id": "$yKACrqmpAGU7ebQYdYm6lFvduAFOOi8DNMzArlqn4lA"
+    },
+    "event_id": "$yKACrqmpAGU7ebQYdYm6lFvduAFOOi8DNMzArlqn4lA"
+  },
+  "format": "org.matrix.custom.html",
+  "formatted_body": "<mx-reply><blockquote><a href='https://matrix.to/#/!mrkzEUqaZYrWLpLRmD:lasath.org/$yKACrqmpAGU7ebQYdYm6lFvduAFOOi8DNMzArlqn4lA'>In reply to</a> <a href='https://matrix.to/#/@telegram_279043344:lasath.org'>abzv11 (Telegram)</a><br/>The bank has a large spot position and acts as custodian for the futures etf.  Any buying buy retail on the etf is immediately shorted by the bank</blockquote></mx-reply>There’s no custody, only market makers bidding spot while shorting the futs"
+}'
+Got message with content '{
+  "msgtype": "m.text",
+  "body": "> <Eric Sulli (Telegram)> Sounds like a manipulation fest (even worse than the one we currently have) like with gold... hopefully I am wrong\n\nsorry I don't follow - how does \"validating ownership of the coins held by funds and the threat from hackers\" lead to \"manipulation fest\".... and who wants to manipulate the price?",
+  "external_url": "https://t.me/lobsters_chat/285101",
+  "m.relates_to": {
+    "rel_type": "net.maunium.reply",
+    "m.in_reply_to": {
+      "event_id": "$23FVTqnQ7JcN_MEDz2eCJ3kTUD5sppoMSoVLKMtb8SI"
+    },
+    "event_id": "$23FVTqnQ7JcN_MEDz2eCJ3kTUD5sppoMSoVLKMtb8SI"
+  },
+  "format": "org.matrix.custom.html",
+  "formatted_body": "<mx-reply><blockquote><a href='https://matrix.to/#/!mrkzEUqaZYrWLpLRmD:lasath.org/$23FVTqnQ7JcN_MEDz2eCJ3kTUD5sppoMSoVLKMtb8SI'>In reply to</a> <a href='https://matrix.to/#/@telegram_1645574946:lasath.org'>Eric Sulli (Telegram)</a><br/>Sounds like a manipulation fest (even worse than the one we currently have) like with gold... hopefully I am wrong</blockquote></mx-reply>sorry I don&#x27;t follow - how does &quot;validating ownership of the coins held by funds and the threat from hackers&quot; lead to &quot;manipulation fest&quot;.... and who wants to manipulate the price?"
+}'
+Got message with content '{
+  "msgtype": "m.text",
+  "body": "Anyway volatility might be reduced, and price is being manipulated nowadays also so... you just change the actors",
+  "external_url": "https://t.me/lobsters_chat/285103"
+}'
+Got message with content '{
+  "msgtype": "m.text",
+  "body": "> <Shinichi Kudo (Telegram)> sorry I don't follow - how does \"validating ownership of the coins held by funds and the threat from hackers\" lead to \"manipulation fest\".... and who wants to manipulate the price?\n\nThey can trade large volumes of BTC without having to hold it actually (\"validating ownership part\")... I do not know for sure but that phrase makes me noise",
+  "external_url": "https://t.me/lobsters_chat/285102",
+  "m.relates_to": {
+    "rel_type": "net.maunium.reply",
+    "m.in_reply_to": {
+      "event_id": "$-sMTkpnFjNxTsQUSQTcQgFUAYXZp-wRmx0zxC5Jd5W8"
+    },
+    "event_id": "$-sMTkpnFjNxTsQUSQTcQgFUAYXZp-wRmx0zxC5Jd5W8"
+  },
+  "format": "org.matrix.custom.html",
+  "formatted_body": "<mx-reply><blockquote><a href='https://matrix.to/#/!mrkzEUqaZYrWLpLRmD:lasath.org/$-sMTkpnFjNxTsQUSQTcQgFUAYXZp-wRmx0zxC5Jd5W8'>In reply to</a> <a href='https://matrix.to/#/@telegram_273962203:lasath.org'>Shinichi Kudo (Telegram)</a><br/>sorry I don&#x27;t follow - how does &quot;validating ownership of the coins held by funds and the threat from hackers&quot; lead to &quot;manipulation fest&quot;.... and who wants to manipulate the price?</blockquote></mx-reply>They can trade large volumes of BTC without having to hold it actually (&quot;validating ownership part&quot;)... I do not know for sure but that phrase makes me noise"
+}'
