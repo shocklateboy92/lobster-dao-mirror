@@ -7,6 +7,8 @@
   "license": "GPL2",
   "private": true,
   "dependencies": {
-    "@sorunome/matrix-bot-sdk": "^0.5.13"
+    "@azure/cosmos": "^3.14.1",
+    "@sorunome/matrix-bot-sdk": "^0.5.13",
+    "async-mutex": "^0.3.2"
   }
 }
