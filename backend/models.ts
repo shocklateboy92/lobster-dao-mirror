@@ -17,4 +17,9 @@ export interface IMessage {
      * @summary Deeplink to original telegram message.
      */
     messageUrl: string;
+
+    body: {
+        type: "text";
+        content: string;
+    };
 }

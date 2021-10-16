@@ -20,12 +20,13 @@ export const initDb = async () => {
 export const fetchMessage = async (
     id: string
 ): Promise<IMessage | undefined> => {
+    console.log("Trying to fetch " + id);
     const { resource } = await container.item(id).read<IMessage>();
     return resource;
 };
 
 export const writeMessage = (message: IMessage) =>
-    container.items.create(message);
+    container.items.upsert(message);
 
 function requiredParam(name: string) {
     const value = process.env[name];

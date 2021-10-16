@@ -25,8 +25,12 @@ AutojoinRoomsMixin.setupOnClient(client);
 
 const mutex = new Mutex();
 
-client.on("room.message", (_roomId, event) =>
+client.on("room.message", (roomId, event) =>
     mutex.runExclusive(async () => {
+        if (roomId !== "!mrkzEUqaZYrWLpLRmD:lasath.org") {
+            return;
+        }
+
         if (event.content?.msgtype !== "m.text") {
             console.log(
                 `Recieved non next event of type '${event.content?.msgtype}'`
@@ -40,13 +44,17 @@ client.on("room.message", (_roomId, event) =>
 
         const { event_id, content, origin_server_ts } = event;
         const timeStamp = new Date(origin_server_ts);
-        const parentId = content.m_relates_to?.m_in_reply_to;
+        const parentId = content["m.relates_to"]?.event_id;
         const message: IMessage = {
             id: event_id,
             utcDate: `${timeStamp.getUTCFullYear()}-${timeStamp.getUTCMonth()}-${timeStamp.getUTCDate()}`,
             threadId: await determineThreadId(event_id, parentId),
             timeStamp,
             messageUrl: content.external_url,
+            body: {
+                type: "text",
+                content: content.body,
+            },
         };
         await writeMessage(message);
 
@@ -55,6 +63,7 @@ client.on("room.message", (_roomId, event) =>
 );
 
 async function determineThreadId(messageId: string, parentId?: string) {
+    console.log(`Got parent '${parentId}' for '${messageId}'`);
     if (parentId) {
         const parent = await fetchMessage(parentId);
         return parent?.threadId ?? messageId;
