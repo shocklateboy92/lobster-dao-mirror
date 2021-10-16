@@ -63,7 +63,6 @@ client.on("room.message", (roomId, event) =>
 );
 
 async function determineThreadId(messageId: string, parentId?: string) {
-    console.log(`Got parent '${parentId}' for '${messageId}'`);
     if (parentId) {
         const parent = await fetchMessage(parentId);
         return parent?.threadId ?? messageId;
@@ -73,5 +72,3 @@ async function determineThreadId(messageId: string, parentId?: string) {
 }
 
 initDb().then(() => client.start().then(() => console.log("Client started!")));
-
-export const foo = "blah";

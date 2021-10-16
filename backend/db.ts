@@ -20,9 +20,13 @@ export const initDb = async () => {
 export const fetchMessage = async (
     id: string
 ): Promise<IMessage | undefined> => {
-    console.log("Trying to fetch " + id);
-    const { resource } = await container.item(id).read<IMessage>();
-    return resource;
+    const response = await container.items
+        .query({
+            query: "SELECT * FROM messages m WHERE m.id = @id",
+            parameters: [{ name: "@id", value: id }],
+        })
+        .fetchAll();
+    return response.resources[0];
 };
 
 export const writeMessage = (message: IMessage) =>
