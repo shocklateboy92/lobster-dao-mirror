@@ -7,7 +7,7 @@ import {
 } from "@sorunome/matrix-bot-sdk/lib/index";
 import { Mutex } from "async-mutex";
 import { IMessage } from "models";
-import { fetchMessage, initDb, writeMessage } from "./db";
+import { fetchMessage, getNextTimeRank, initDb, writeMessage } from "./db";
 
 const MATRIX_KEY = process.env.MATRIX_KEY || keyRequiredError("MATRIX_KEY");
 const MATRIX_HOST = process.env.MATRIX_HOST || keyRequiredError("MATRIX_HOST");
@@ -55,6 +55,7 @@ client.on("room.message", (roomId, event) =>
                 type: "text",
                 content: content.body,
             },
+            timeRank: getNextTimeRank(),
         };
         await writeMessage(message);
 

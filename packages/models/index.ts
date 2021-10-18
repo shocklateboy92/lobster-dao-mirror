@@ -18,6 +18,11 @@ export interface IMessage {
      */
     messageUrl: string;
 
+    /**
+     * @summary Persistent, contiguous, chronological ordering of messages for display purposes.
+     */
+    timeRank: number;
+
     body: {
         type: "text";
         content: string;
