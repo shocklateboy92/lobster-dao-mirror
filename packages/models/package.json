@@ -1,0 +1,7 @@
+{
+  "name": "models",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "GPL2",
+  "private": true
+}

@@ -1,5 +1,5 @@
 import { CosmosClient } from "@azure/cosmos";
-import { IMessage } from "./models";
+import { IMessage } from "models";
 
 const DB_CONNECTION_STR = requiredParam("DB_CONNECTION_STR");
 const DB_NAME = "test";

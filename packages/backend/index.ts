@@ -6,7 +6,7 @@ import {
     SimpleFsStorageProvider,
 } from "@sorunome/matrix-bot-sdk/lib/index";
 import { Mutex } from "async-mutex";
-import { IMessage } from "./models";
+import { IMessage } from "models";
 import { fetchMessage, initDb, writeMessage } from "./db";
 
 const MATRIX_KEY = process.env.MATRIX_KEY || keyRequiredError("MATRIX_KEY");
