@@ -15,6 +15,8 @@ const database = client.database(DB_NAME);
 const container = database.container(CONTAINER_NAME);
 
 export async function fetchMessages(): Promise<IMessage[]> {
-    const response = await container.items.readAll<IMessage>().fetchAll();
+    const response = await container.items
+        .query("SELECT * FROM messages m ORDER BY m.timeRank ASC")
+        .fetchAll();
     return response.resources;
 }

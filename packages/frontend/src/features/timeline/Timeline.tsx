@@ -4,19 +4,66 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { timelineFetchAsync } from "./timelineSlice";
 import "./Timeline.scss";
 
-type IndentationLookup = { [messageRank: string]: number };
+interface Thread {
+    first: number;
+    last: number;
+    count: number;
+}
 
-function determineIndentation(messages: IMessage[]): IndentationLookup {
-    const indentations: IndentationLookup = {};
+type ThreadLookup = { [threadId: string]: Thread };
+type ThreadIndentationLookup = { [threadId: string]: number };
+
+function determineHighlightedThreads(messages: IMessage[]): ThreadLookup {
+    const threads: { [threadId: string]: Thread } = {};
     for (const message of messages) {
-        indentations[message.id] = Math.floor(2.99999999 * Math.random());
+        if (!threads[message.threadId]) {
+            threads[message.threadId] = {
+                first: message.timeRank,
+                last: message.timeRank,
+                count: 1,
+            };
+        } else {
+            threads[message.threadId].count += 1;
+            threads[message.threadId].last = message.timeRank;
+        }
+    }
+    for (const threadId in threads) {
+        if (threads[threadId].count < 2) {
+            delete threads[threadId];
+        }
+    }
+    return threads;
+}
+
+function determineIndentation(messages: IMessage[]): ThreadIndentationLookup {
+    const highlightedThreads = determineHighlightedThreads(messages);
+    const indentations: ThreadIndentationLookup = {};
+    const currentlyAllocated = new Set<number>();
+
+    for (const { threadId, timeRank } of messages) {
+        const messageThread = highlightedThreads[threadId];
+        if (messageThread) {
+            if (messageThread.first === timeRank) {
+                // Is first element of thread
+                for (let i = 1; i <= messages.length; ++i) {
+                    if (!currentlyAllocated.has(i)) {
+                        indentations[threadId] = i;
+                        currentlyAllocated.add(i);
+                        break;
+                    }
+                }
+            } else if (messageThread.last === timeRank) {
+                // Is last element of thread
+                currentlyAllocated.delete(indentations[threadId]);
+            }
+        }
     }
     return indentations;
 }
 
 export const Timeline: FC = () => {
     const messages = useAppSelector((state) => state.timeline.messages);
-    const messageIndentation = determineIndentation(Object.values(messages));
+    const threadIndentation = determineIndentation(Object.values(messages));
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(timelineFetchAsync());
@@ -26,8 +73,9 @@ export const Timeline: FC = () => {
             {Object.values(messages).map((message, index) => (
                 <div
                     style={{
-                        gridRow: index + 1,
-                        gridColumn: messageIndentation[message.id] + 1,
+                        gridRow: 1 + index,
+                        gridColumn:
+                            1 + (threadIndentation[message.threadId] ?? 0),
                     }}
                     key={message.id}
                 >

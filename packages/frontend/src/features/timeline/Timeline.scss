@@ -1,14 +1,8 @@
 .timeline {
     display: grid;
     text-align: left;
-    grid-template-columns: 1fr 1fr 1fr;
-    .indent-0 {
-        grid-column: 0;
-    }
-    .indent-1 {
-        grid-column: 1;
-    }
-    .indent-2 {
-        grid-column: 2;
+    grid-template-columns: repeat(100, 36ch);
+    > div {
+        white-space: pre-line;
     }
 }
