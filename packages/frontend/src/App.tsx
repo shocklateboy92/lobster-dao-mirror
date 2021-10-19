@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { Timeline } from "./features/counter/timeline/Timeline";
+import { Timeline } from "./features/timeline/Timeline";
 
 function App() {
     return (

@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import counterReducer from "../features/counter/counterSlice";
-import { timelineReducer } from "../features/counter/timeline/timelineSlice";
+import { timelineReducer } from "../features/timeline/timelineSlice";
 
 export const store = configureStore({
     reducer: {

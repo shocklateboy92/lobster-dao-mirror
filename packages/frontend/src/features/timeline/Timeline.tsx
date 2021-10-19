@@ -1,6 +1,6 @@
 import { IMessage } from "models";
 import { FC, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { timelineFetchAsync } from "./timelineSlice";
 import "./Timeline.scss";
 
