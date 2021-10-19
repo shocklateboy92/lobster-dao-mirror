@@ -1,8 +1,12 @@
 import { CosmosClient } from "@azure/cosmos";
 import { IMessage } from "models";
 
-const DB_CONNECTION_STR =
-    "AccountEndpoint=https://lobster-dao-mirror.documents.azure.com:443/;AccountKey=mZqVa23wj1uUrZ0g1VxlMWAydBqg0uS5mT28fkZ5YXrCh2KRpQV5MJ8EOMNZWbMSakRTxmbAwJBWDNyGPXWkww==;";
+const DB_CONNECTION_STR = process.env.REACT_APP_DB_CONNECTION_STR;
+if (!DB_CONNECTION_STR) {
+    throw new Error(
+        "Server has misconfigured DB Access token (email the webmaster)"
+    );
+}
 const DB_NAME = "test";
 const CONTAINER_NAME = "messages";
 
