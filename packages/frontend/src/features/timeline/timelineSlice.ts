@@ -99,10 +99,7 @@ const timelineSlice = createSlice({
             );
             const newMessagesOrder = state.messageOrder.concat(
                 action.payload
-                    .map((message) => {
-                        console.log(typeof message.timeRank);
-                        return message.timeRank;
-                    })
+                    .map((message) => message.timeRank)
                     .sort((a, b) => a - b)
             );
             const threadIndentation = determineIndentation(
