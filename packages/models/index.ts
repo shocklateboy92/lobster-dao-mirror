@@ -27,4 +27,12 @@ export interface IMessage {
         type: "text";
         content: string;
     };
+
+    sender: {
+        displayName: string;
+        /**
+         * @summary Full URL of the avatar image in the azure blob storage account.
+         */
+        avatarUrl?: string;
+    };
 }
