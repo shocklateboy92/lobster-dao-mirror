@@ -1,9 +1,25 @@
+$column-width: 36ch;
+$column-gap: 2ch;
+$background-color: lighten(orange, 45%);
+
+body {
+    background-color: $background-color;
+    background-image: linear-gradient(
+        to right,
+        lighten($background-color, 5%),
+        lighten($background-color, 5%) ($column-width + $column-gap),
+        $background-color ($column-width + $column-gap),
+        $background-color
+    );
+    background-size: (2 * ($column-width + $column-gap)) 100%;
+}
+
 .timeline {
     display: grid;
     text-align: left;
-    grid-template-columns: repeat(auto-fit, 36ch);
-    padding: 1rem;
-    row-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, $column-width);
+    padding: ($column-gap / 2);
+    gap: $column-gap;
 
     .message {
         display: grid;

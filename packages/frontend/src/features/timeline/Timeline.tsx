@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, Fragment, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { timelineFetchAsync } from "./timelineSlice";
 import "./Timeline.scss";
@@ -8,6 +8,7 @@ export const Message: FC<{ rank: number; row: number }> = ({ rank, row }) => {
     const indentation = useAppSelector(
         (state) => state.timeline.threadIndentation[message.threadId] ?? 0
     );
+    const messageParts = message.body.content.split("\n");
     return (
         <div
             className="message"
@@ -26,7 +27,14 @@ export const Message: FC<{ rank: number; row: number }> = ({ rank, row }) => {
             <span className="sender-name">
                 {message.sender?.displayName || "Tim"}
             </span>
-            <span className="content">{message.body.content}</span>
+            <span className="content">
+                {messageParts.map((part, index) => (
+                    <Fragment key={index}>
+                        {index > 0 && <br />}
+                        {part}
+                    </Fragment>
+                ))}
+            </span>
         </div>
     );
 };
