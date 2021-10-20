@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IMessage } from "models";
+import { RootState } from "../../app/store";
 import { fetchMessages } from "./timelineAPI";
 
 interface Thread {
@@ -61,35 +62,59 @@ function determineIndentation(messages: IMessage[]): ThreadIndentationLookup {
 
 export interface TimelineState {
     messages: { [timeRank: number]: IMessage };
+    messageOrder: number[];
     threadIndentation: ThreadIndentationLookup;
+    lastFetchedTimeRank: number;
 }
 
 const initialState: TimelineState = {
     messages: {},
+    messageOrder: [],
     threadIndentation: {},
+    lastFetchedTimeRank: 0,
 };
 
-export const timelineFetchAsync = createAsyncThunk(
-    "timeline/fetch",
-    async () => {
-        const messages = await fetchMessages();
-        return messages;
-    }
-);
+export const timelineFetchAsync = createAsyncThunk<
+    IMessage[],
+    void,
+    { state: RootState }
+>("timeline/fetch", async (index, arg) => {
+    const lastRank = arg.getState().timeline.lastFetchedTimeRank;
+    const messages = await fetchMessages(lastRank);
+    return messages;
+});
 
 const timelineSlice = createSlice({
     name: "timeline",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(timelineFetchAsync.fulfilled, (_state, action) => {
-            const threadIndentation = determineIndentation(action.payload);
-            const messages = Object.fromEntries(
-                action.payload.map((message) => [message.timeRank, message])
+        builder.addCase(timelineFetchAsync.fulfilled, (state, action) => {
+            const newMessages = Object.assign(
+                {},
+                state.messages,
+                Object.fromEntries(
+                    action.payload.map((message) => [message.timeRank, message])
+                )
             );
+            const newMessagesOrder = state.messageOrder.concat(
+                action.payload
+                    .map((message) => {
+                        console.log(typeof message.timeRank);
+                        return message.timeRank;
+                    })
+                    .sort((a, b) => a - b)
+            );
+            const threadIndentation = determineIndentation(
+                newMessagesOrder.map((rank) => newMessages[rank])
+            );
+            const newLastRank =
+                newMessagesOrder[newMessagesOrder.length - 1] + 1;
             return {
-                messages,
+                messages: newMessages,
+                messageOrder: newMessagesOrder,
                 threadIndentation,
+                lastFetchedTimeRank: newLastRank || state.lastFetchedTimeRank,
             };
         });
     },

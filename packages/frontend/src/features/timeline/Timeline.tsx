@@ -3,28 +3,33 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { timelineFetchAsync } from "./timelineSlice";
 import "./Timeline.scss";
 
+export const Message: FC<{ rank: number; row: number }> = ({ rank, row }) => {
+    const message = useAppSelector((state) => state.timeline.messages[rank]);
+    const indentation = useAppSelector(
+        (state) => state.timeline.threadIndentation[message.threadId] ?? 0
+    );
+    return (
+        <div
+            style={{
+                gridRow: row,
+                gridColumn: 1 + indentation,
+            }}
+        >
+            Tim: {message.body.content}
+        </div>
+    );
+};
+
 export const Timeline: FC = () => {
     const messages = useAppSelector((state) => state.timeline.messages);
-    const threadIndentation = useAppSelector(
-        (state) => state.timeline.threadIndentation
-    );
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(timelineFetchAsync());
-    }, []);
     return (
         <div className="timeline">
             {Object.values(messages).map((message, index) => (
-                <div
-                    style={{
-                        gridRow: 1 + index,
-                        gridColumn:
-                            1 + (threadIndentation[message.threadId] ?? 0),
-                    }}
+                <Message
+                    rank={message.timeRank}
+                    row={1 + index}
                     key={message.id}
-                >
-                    Tim: {message.body.content}
-                </div>
+                />
             ))}
         </div>
     );
