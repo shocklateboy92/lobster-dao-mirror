@@ -4,6 +4,7 @@ import {
     LogLevel,
     LogService,
     MatrixClient,
+    RichRepliesPreprocessor,
     SimpleFsStorageProvider,
 } from "@sorunome/matrix-bot-sdk/lib/index";
 import { Mutex } from "async-mutex";
@@ -26,6 +27,7 @@ LogService.setLevel(LogLevel.WARN);
 const storage = new SimpleFsStorageProvider(`${STORAGE_DIR}/matrix-state.json`);
 const client = new MatrixClient(MATRIX_HOST, MATRIX_KEY, storage);
 AutojoinRoomsMixin.setupOnClient(client);
+client.addPreprocessor(new RichRepliesPreprocessor());
 
 const avatarsClient =
     BlobServiceClient.fromConnectionString(BLOB_STORAGE_KEY).getContainerClient(
@@ -57,13 +59,15 @@ client.on("room.message", (roomId, event) =>
 
         const profile: IUserProfile = await client.getUserProfile(event.sender);
         console.log("Got user profile: ", JSON.stringify(profile, null, 2));
+        let avatarUrl: string | undefined;
+
         const blobName =
             profile.avatar_url && /[^\/]+$/.exec(profile.avatar_url)?.[0];
-        let avatarUrl: string | undefined;
         if (blobName) {
             console.log(`Creating blob '${blobName}'`);
             const blobClient = avatarsClient.getBlockBlobClient(blobName);
             avatarUrl = blobClient.url;
+
             if (!(await blobClient.exists())) {
                 const content = await axios.get<ArrayBuffer>(
                     client.mxcToHttp(profile.avatar_url),
@@ -71,6 +75,7 @@ client.on("room.message", (roomId, event) =>
                         responseType: "arraybuffer",
                     }
                 );
+
                 const blobContentType = content.headers["content-type"];
                 console.log("Got img response of type" + blobContentType);
                 await blobClient.uploadData(Buffer.from(content.data), {
@@ -100,7 +105,7 @@ client.on("room.message", (roomId, event) =>
             },
             timeRank: getNextTimeRank(),
             sender: {
-                displayName: profile.displayname,
+                displayName: profile.displayname.replace(/ \(Telegram\)$/, ""),
                 avatarUrl,
             },
         };
