@@ -1,21 +1,23 @@
 .timeline {
     display: grid;
     text-align: left;
-    grid-template-columns: repeat(100, 36ch);
+    grid-template-columns: repeat(auto-fit, 36ch);
     padding: 1rem;
-    > div {
-        white-space: pre-line;
-    }
+    row-gap: 1rem;
+
     .message {
         display: grid;
+        grid-template-columns: 3rem;
+        grid-template-rows: min-content 1fr;
+        column-gap: 0.5rem;
         img.profile-picture {
-            max-width: 10ch;
             border-radius: 10px;
             grid-column: 1;
             grid-row-start: 1;
             grid-row-end: 3;
         }
         .sender-name {
+            font-weight: bold;
             grid-column: 2;
             grid-row: 1;
         }

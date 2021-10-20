@@ -16,13 +16,13 @@ export const Message: FC<{ rank: number; row: number }> = ({ rank, row }) => {
                 gridColumn: 1 + indentation,
             }}
         >
-            {message.sender?.avatarUrl && (
-                <img
-                    //styledisplay="inline"
-                    className="profile-picture"
-                    src={message.sender.avatarUrl!}
-                />
-            )}
+            <img
+                className="profile-picture"
+                src={
+                    message.sender?.avatarUrl ||
+                    "https://www.personality-database.com/profile_images/34247.png"
+                }
+            />
             <span className="sender-name">
                 {message.sender?.displayName || "Tim"}
             </span>
