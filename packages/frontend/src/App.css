@@ -34,3 +34,7 @@
         transform: translateY(0px);
     }
 }
+
+img {
+    max-width: 100%;
+}

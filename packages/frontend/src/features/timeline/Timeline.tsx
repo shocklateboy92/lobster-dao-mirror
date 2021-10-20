@@ -10,12 +10,23 @@ export const Message: FC<{ rank: number; row: number }> = ({ rank, row }) => {
     );
     return (
         <div
+            className="message"
             style={{
                 gridRow: row,
                 gridColumn: 1 + indentation,
             }}
         >
-            Tim: {message.body.content}
+            {message.sender?.avatarUrl && (
+                <img
+                    //styledisplay="inline"
+                    className="profile-picture"
+                    src={message.sender.avatarUrl!}
+                />
+            )}
+            <span className="sender-name">
+                {message.sender?.displayName || "Tim"}
+            </span>
+            <span className="content">{message.body.content}</span>
         </div>
     );
 };

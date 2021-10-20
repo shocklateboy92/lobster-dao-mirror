@@ -6,4 +6,22 @@
     > div {
         white-space: pre-line;
     }
+    .message {
+        display: grid;
+        img.profile-picture {
+            max-width: 10ch;
+            border-radius: 10px;
+            grid-column: 1;
+            grid-row-start: 1;
+            grid-row-end: 3;
+        }
+        .sender-name {
+            grid-column: 2;
+            grid-row: 1;
+        }
+        .content {
+            grid-column: 2;
+            grid-row: 2;
+        }
+    }
 }
