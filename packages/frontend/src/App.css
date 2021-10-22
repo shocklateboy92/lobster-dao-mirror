@@ -17,6 +17,8 @@
     background-color: orange;
     color: white;
     font-size: calc(10px + 2vmin);
+    position: fixed;
+    width: 100%;
 }
 
 .App-link {

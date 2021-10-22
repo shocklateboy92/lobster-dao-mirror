@@ -40,15 +40,30 @@ export const Message: FC<{ rank: number; row: number }> = ({ rank, row }) => {
 };
 
 export const Timeline: FC = () => {
-    const messages = useAppSelector((state) => state.timeline.messages);
+    const messageOrder = useAppSelector((state) => state.timeline.messageOrder);
+    const highlightedThreads = useAppSelector(
+        (state) => state.timeline.highlightedThreads
+    );
+    const indentation = useAppSelector(
+        (state) => state.timeline.threadIndentation
+    );
+    const firstRank = messageOrder[0];
+    console.log(messageOrder);
     return (
         <div className="timeline">
-            {Object.values(messages).map((message, index) => (
-                <Message
-                    rank={message.timeRank}
-                    row={1 + index}
-                    key={message.id}
-                />
+            {Object.entries(highlightedThreads).map(([id, thread]) => (
+                <div
+                    key={id}
+                    style={{
+                        gridColumn: indentation[id] + 1,
+                        gridRowStart: thread.first,
+                        gridRowEnd: thread.last + 1,
+                    }}
+                    className="thread-background"
+                ></div>
+            ))}
+            {messageOrder.map((rank, index) => (
+                <Message rank={rank} row={1 + index} key={rank} />
             ))}
         </div>
     );

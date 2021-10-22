@@ -34,8 +34,10 @@ function determineHighlightedThreads(messages: IMessage[]): ThreadLookup {
     return threads;
 }
 
-function determineIndentation(messages: IMessage[]): ThreadIndentationLookup {
-    const highlightedThreads = determineHighlightedThreads(messages);
+function determineIndentation(
+    messages: IMessage[],
+    highlightedThreads: ThreadLookup
+): ThreadIndentationLookup {
     const indentations: ThreadIndentationLookup = {};
     const currentlyAllocated = new Set<number>();
 
@@ -61,6 +63,7 @@ function determineIndentation(messages: IMessage[]): ThreadIndentationLookup {
 }
 
 export interface TimelineState {
+    highlightedThreads: ThreadLookup;
     messages: { [timeRank: number]: IMessage };
     messageOrder: number[];
     threadIndentation: ThreadIndentationLookup;
@@ -68,6 +71,7 @@ export interface TimelineState {
 }
 
 const initialState: TimelineState = {
+    highlightedThreads: {},
     messages: {},
     messageOrder: [],
     threadIndentation: {},
@@ -102,12 +106,19 @@ const timelineSlice = createSlice({
                     .map((message) => message.timeRank)
                     .sort((a, b) => a - b)
             );
+            const orderedMessageInfo = newMessagesOrder.map(
+                (rank) => newMessages[rank]
+            );
+            const highlightedThreads =
+                determineHighlightedThreads(orderedMessageInfo);
             const threadIndentation = determineIndentation(
-                newMessagesOrder.map((rank) => newMessages[rank])
+                orderedMessageInfo,
+                highlightedThreads
             );
             const newLastRank =
                 newMessagesOrder[newMessagesOrder.length - 1] + 1;
             return {
+                highlightedThreads,
                 messages: newMessages,
                 messageOrder: newMessagesOrder,
                 threadIndentation,
