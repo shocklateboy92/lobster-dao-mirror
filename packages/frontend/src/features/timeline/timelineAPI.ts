@@ -14,11 +14,11 @@ const client = new CosmosClient(DB_CONNECTION_STR);
 const database = client.database(DB_NAME);
 const container = database.container(CONTAINER_NAME);
 
-export async function fetchMessages(from: number = 0): Promise<IMessage[]> {
+export async function fetchMessages(date: string): Promise<IMessage[]> {
     const response = await container.items
         .query({
-            query: "SELECT * FROM messages m WHERE m.timeRank >= @from ORDER BY m.timeRank ASC",
-            parameters: [{ name: "@from", value: from }],
+            query: "SELECT * FROM messages m WHERE (m.utcDate = @date) ORDER BY m.timeRank ASC",
+            parameters: [{ name: "@date", value: date }],
         })
         .fetchAll();
     return response.resources;

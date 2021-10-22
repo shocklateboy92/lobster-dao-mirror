@@ -63,28 +63,29 @@ function determineIndentation(
 }
 
 export interface TimelineState {
-    highlightedThreads: ThreadLookup;
+    days: {
+        [isoDate: string]:
+            | {
+                  threadIndentation: ThreadIndentationLookup;
+                  highlightedThreads: ThreadLookup;
+                  messageOrder: number[];
+              }
+            | undefined;
+    };
     messages: { [timeRank: number]: IMessage };
-    messageOrder: number[];
-    threadIndentation: ThreadIndentationLookup;
-    lastFetchedTimeRank: number;
 }
 
 const initialState: TimelineState = {
-    highlightedThreads: {},
+    days: {},
     messages: {},
-    messageOrder: [],
-    threadIndentation: {},
-    lastFetchedTimeRank: 0,
 };
 
 export const timelineFetchAsync = createAsyncThunk<
     IMessage[],
-    void,
+    string,
     { state: RootState }
->("timeline/fetch", async (index, arg) => {
-    const lastRank = arg.getState().timeline.lastFetchedTimeRank;
-    const messages = await fetchMessages(lastRank);
+>("timeline/fetch", async (date, { getState }) => {
+    const messages = await fetchMessages(date);
     return messages;
 });
 
@@ -96,17 +97,15 @@ const timelineSlice = createSlice({
         builder.addCase(timelineFetchAsync.fulfilled, (state, action) => {
             const newMessages = Object.assign(
                 {},
-                state.messages,
                 Object.fromEntries(
                     action.payload.map((message) => [message.timeRank, message])
-                )
+                ),
+                state.messages
             );
-            const newMessagesOrder = state.messageOrder.concat(
-                action.payload
-                    .map((message) => message.timeRank)
-                    .sort((a, b) => a - b)
-            );
-            const orderedMessageInfo = newMessagesOrder.map(
+            const messageOrder = action.payload
+                .map((message) => message.timeRank)
+                .sort((a, b) => a - b);
+            const orderedMessageInfo = messageOrder.map(
                 (rank) => newMessages[rank]
             );
             const highlightedThreads =
@@ -115,14 +114,16 @@ const timelineSlice = createSlice({
                 orderedMessageInfo,
                 highlightedThreads
             );
-            const newLastRank =
-                newMessagesOrder[newMessagesOrder.length - 1] + 1;
             return {
-                highlightedThreads,
+                days: {
+                    ...state.days,
+                    [action.meta.arg]: {
+                        highlightedThreads,
+                        threadIndentation,
+                        messageOrder,
+                    },
+                },
                 messages: newMessages,
-                messageOrder: newMessagesOrder,
-                threadIndentation,
-                lastFetchedTimeRank: newLastRank || state.lastFetchedTimeRank,
             };
         });
     },

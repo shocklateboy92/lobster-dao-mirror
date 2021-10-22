@@ -9,7 +9,7 @@ function App() {
             <header className="App-header">
                 <p>Lobster DAO mirror</p>
             </header>
-            <Timeline />
+            <Timeline date="2021-9-21" />
         </div>
     );
 }
