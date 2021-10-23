@@ -31,7 +31,8 @@ export const Message: FC<{ rank: number; row: number; date: string }> = ({
                 }
             />
             <span className="sender-name">
-                {message.sender?.displayName || "Tim"}
+                {message.sender?.displayName || "Tim"}{" "}
+                {new Date(message.timeStamp).toUTCString()}
             </span>
             <span className="content">
                 {messageParts.map((part, index) => (
