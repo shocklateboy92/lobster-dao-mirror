@@ -46,6 +46,17 @@ export const fetchMessage = async (
     return response.resources[0];
 };
 
+export const fetchAllMessages = async (): Promise<IMessage[] | undefined> => {
+    const response = await container.items
+        .query("SELECT * FROM messages m ORDER BY m.timeRank ASC")
+        .fetchAll();
+    return response.resources;
+};
+
+export const deleteMessage = async (id: string, utcDate: string) => {
+    await container.item(id, utcDate).delete();
+};
+
 export const writeMessage = (message: IMessage) =>
     container.items.upsert(message);
 
