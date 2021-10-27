@@ -7,7 +7,6 @@ $background-color: lighten(orange, 45%);
     text-align: left;
     grid-template-columns: repeat(100, $column-width);
     padding: ($column-gap / 2);
-    padding-top: 8rem;
     gap: $column-gap;
 
     .message {

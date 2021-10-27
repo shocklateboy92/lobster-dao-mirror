@@ -21,6 +21,10 @@
     width: 100%;
 }
 
+.App-body {
+    padding-top: 8rem;
+}
+
 .App-link {
     color: rgb(112, 76, 182);
 }
