@@ -14,6 +14,9 @@ export const Message: FC<{ rank: number; row: number; date: string }> = ({
             state.timeline.days[date]?.threadIndentation[message.threadId] ?? 0
     );
     const messageParts = message.body.content.split("\n");
+    const userName = message.sender?.displayName || "Tim";
+    // Disable this lint because we really DO want the words "Profile picture" in the img alt
+    /* eslint-disable jsx-a11y/img-redundant-alt */
     return (
         <div
             className="message"
@@ -24,14 +27,14 @@ export const Message: FC<{ rank: number; row: number; date: string }> = ({
         >
             <img
                 className="profile-picture"
+                alt={`Profile picture for user ${userName}`}
                 src={
                     message.sender?.avatarUrl ||
                     "https://www.personality-database.com/profile_images/34247.png"
                 }
             />
             <span className="sender-name">
-                {message.sender?.displayName || "Tim"}{" "}
-                {new Date(message.timeStamp).toUTCString()}
+                {userName} {new Date(message.timeStamp).toUTCString()}
             </span>
             <span className="content">
                 {messageParts.map((part, index) => (
@@ -43,6 +46,7 @@ export const Message: FC<{ rank: number; row: number; date: string }> = ({
             </span>
         </div>
     );
+    /* eslint-enable */
 };
 
 export const Timeline: FC<{ date: string }> = ({ date }) => {
