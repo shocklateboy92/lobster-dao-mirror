@@ -37,7 +37,6 @@ function App() {
                             path="/messages/:id"
                             children={(props) => {
                                 const dateString = props.match!.params.id;
-                                console.log(dateString);
                                 if (validateDate(dateString)) {
                                     return <Timeline date={dateString} />;
                                 } else {

@@ -62,13 +62,11 @@ export const Timeline: FC<{ date: string }> = ({ date }) => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(timelineFetchAsync(date));
-        console.log("Creating timer");
         const timerHandle = window.setInterval(
             () => dispatch(timelineFetchAsync(date)),
             15000
         );
         return () => {
-            console.log("Clearing timer");
             window.clearInterval(timerHandle);
         };
     }, [date, dispatch]);
