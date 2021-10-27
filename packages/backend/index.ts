@@ -95,7 +95,9 @@ client.on("room.message", (roomId, event) =>
         const parentId = content["m.relates_to"]?.event_id;
         const message: IMessage = {
             id: event_id,
-            utcDate: `${timeStamp.getUTCFullYear()}-${timeStamp.getUTCMonth()}-${timeStamp.getUTCDate()}`,
+            utcDate: `${timeStamp.getUTCFullYear()}-${
+                timeStamp.getUTCMonth() + 1
+            }-${timeStamp.getUTCDate()}`,
             threadId: await determineThreadId(event_id, parentId),
             timeStamp,
             messageUrl: content.external_url,
@@ -108,7 +110,7 @@ client.on("room.message", (roomId, event) =>
                 displayName: profile.displayname.replace(/ \(Telegram\)$/, ""),
                 avatarUrl,
             },
-            version: versions.INITIAL,
+            version: versions.DATE_NORMALIZATION,
         };
         await writeMessage(message);
 
