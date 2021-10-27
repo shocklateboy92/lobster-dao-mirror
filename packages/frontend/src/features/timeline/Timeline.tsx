@@ -2,7 +2,6 @@ import { FC, Fragment, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { timelineFetchAsync } from "./timelineSlice";
 import "./Timeline.scss";
-import { useDispatch } from "react-redux";
 
 export const Message: FC<{ rank: number; row: number; date: string }> = ({
     rank,
