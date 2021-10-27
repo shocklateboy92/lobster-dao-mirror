@@ -35,4 +35,12 @@ export interface IMessage {
          */
         avatarUrl?: string;
     };
+
+    version: number | undefined;
 }
+
+export const versions: { [version_name: string]: number } = {
+    NO_VERSION: 0,
+    INITIAL: 1,
+    DATE_NORMALIZATION: 2,
+};

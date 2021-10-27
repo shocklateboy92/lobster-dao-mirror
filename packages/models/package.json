@@ -1,7 +1,10 @@
 {
   "name": "models",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "license": "GPL2",
-  "private": true
+  "private": true,
+  "scripts": {
+    "build": "yarn run tsc"
+  }
 }
